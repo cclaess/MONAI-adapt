@@ -28,6 +28,7 @@ from monai.transforms import (
 
 
 def get_loader(args):
+    """
     splits1 = "/dataset_LUNA16_0.json"
     splits2 = "/dataset_TCIAcovid19_0.json"
     splits3 = "/dataset_HNSCC_0.json"
@@ -68,6 +69,16 @@ def get_loader(args):
     val_files = vallist1 + vallist2 + vallist3 + vallist4 + vallist5
     print("Dataset all training: number of data: {}".format(len(datalist)))
     print("Dataset all validation: number of data: {}".format(len(val_files)))
+    """
+
+    splits = "/dataset_RSNA_STR_PED_0.json"
+    list_dir = "./jsons"
+    jsonlist = list_dir + splits
+    datadir = "/share/colon/cclaessens/datasets/RSNA-STR-PED"
+    datalist = load_decathlon_datalist(jsonlist, False, "training", base_dir=datadir)
+    val_files = load_decathlon_datalist(jsonlist, False, "validation", base_dir=datadir)
+
+    num_workers = 4
 
     train_transforms = Compose(
         [
