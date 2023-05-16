@@ -196,13 +196,16 @@ def main():
     torch.backends.cudnn.benchmark = True
     torch.autograd.set_detect_anomaly(True)
     args.distributed = False
+    print(3)
     if "WORLD_SIZE" in os.environ:
+        print(2)
         args.distributed = int(os.environ["WORLD_SIZE"]) > 1
     args.device = "cuda:0"
     args.world_size = 1
     args.rank = 0
 
     if args.distributed:
+        print(1)
         args.device = "cuda:%d" % args.local_rank
         torch.cuda.set_device(args.local_rank)
         torch.distributed.init_process_group(backend="nccl", init_method=args.dist_url)
